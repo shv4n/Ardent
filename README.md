@@ -1,66 +1,267 @@
-# Ardent Development
+# Ardent
 
-> Personal development tracker and notes.
-
----
-
-## 🚧 Current Focus
-
-- [ ] Finish DataManager
-- [ ] Finish EntityManager
-- [ ] Rewrite StateManager
-- [ ] Design Combat Pipeline
+> Personal development tracker, architecture notes, and roadmap.
 
 ---
 
-## 📅 Next Session
+# Progress
 
-- [ ] Add ProfileTemplate
-- [ ] Cache player profiles
-- [ ] Add Entity IDs
-- [ ] Implement DamageService
+## 1. StateManager (Hybrid)
 
----
+### Overall
+- [x] Implemented
+- [ ] Fully tested
 
-## 🧠 Ideas
+### Functions
 
-- Quassatus should only have 3–5 abilities.
-- Weapon resonance determines combat style.
-- Replace Strength/Dexterity with a unique stat system.
-- Consider stamina affecting posture instead of movement speed.
+- [x] Register
+- [ ] Register tested
 
----
+- [x] Unregister
+- [ ] Unregister tested
 
-## 🐛 Bugs
+- [x] SetState
+- [ ] SetState tested
 
-- [ ] Fix EntityManager cleanup
-- [ ] Hitbox occasionally hits twice
-- [ ] NPC ragdoll desync
+- [x] GetState
+- [ ] GetState tested
 
----
+- [x] Trigger
+- [ ] Trigger tested
 
-## 📖 Things to Learn
+- [x] PushState
+- [ ] PushState tested
 
-- [ ] Git branching
-- [ ] Parallel Luau
-- [ ] ECS optimization
-- [ ] Prediction & reconciliation
+- [x] PopState
+- [ ] PopState tested
 
----
-
-## 📝 Notes
-
-- Never access ProfileStore outside DataManager.
-- Managers own data, Services perform actions.
-- State machines should never directly modify networking.
+- [x] GetAllInState
+- [ ] GetAllInState tested
 
 ---
 
-## 💡 Future Systems
+## 2. State Definitions
+
+### Overall
+- [x] Implemented
+- [ ] Fully tested
+
+### SharedFunctions
+
+- [x] SharedFunctions
+- [ ] SharedFunctions tested
+
+### States
+
+- [x] Idle
+- [ ] Idle tested
+
+- [x] Attacking
+- [ ] Attacking tested
+
+- [x] Blocking
+- [ ] Blocking tested
+
+- [x] Stunned
+- [ ] Stunned tested
+
+---
+
+## 3. EntityManager (DOD)
+
+### Overall
+- [x] Implemented
+- [ ] Fully tested
+
+### Functions
+
+- [x] CreateEntity
+- [ ] CreateEntity tested
+
+- [x] DestroyEntity
+- [ ] DestroyEntity tested
+
+- [x] GetEntity
+- [ ] GetEntity tested
+
+- [x] GetEntityByCharacter
+- [ ] GetEntityByCharacter tested
+
+- [x] EntityExists
+- [ ] EntityExists tested
+
+- [x] ChangeState
+- [ ] ChangeState tested
+
+- [x] ForceState
+- [ ] ForceState tested
+
+- [x] SwapStateModule
+- [ ] SwapStateModule tested
+
+---
+
+## 4. DataManager
+
+### Overall
+- [x] Implemented
+- [ ] Fully tested
+
+### Functions
+
+- [x] PlayerAdded
+- [ ] PlayerAdded tested
+
+- [x] PlayerRemoved
+- [ ] PlayerRemoved tested
+
+- [x] GetClientData
+- [ ] GetClientData tested
+
+- [x] GetStateModule
+- [ ] GetStateModule tested
+
+- [x] SetStateModule
+- [ ] SetStateModule tested
+
+- [x] AddCrowns
+- [ ] AddCrowns tested
+
+- [x] AddEXP
+- [ ] AddEXP tested
+
+---
+
+## 5. DamageService
+
+### Overall
+- [x] Implemented
+- [ ] Fully tested
+
+### Functions
+
+- [x] ApplyDamage
+- [ ] ApplyDamage tested
+
+- [x] CalculateDamage
+- [ ] CalculateDamage tested
+
+---
+
+## 6. CombatService
+
+### Overall
+- [ ] Implemented
+- [ ] Fully tested
+
+### Functions
+
+- [ ] OnAttackInput
+- [ ] OnAttackInput tested
+
+- [ ] OnHitboxTouched
+- [ ] OnHitboxTouched tested
+
+- [ ] AdvanceCombo
+- [ ] AdvanceCombo tested
+
+---
+
+## 7. MovementService
+
+### Overall
+- [ ] Implemented
+- [ ] Fully tested
+
+### Functions
+
+- [ ] OnDashInput
+- [ ] OnDashInput tested
+
+- [ ] CanSprint
+- [ ] CanSprint tested
+
+---
+
+## 8. SkillService
+
+### Overall
+- [ ] Implemented
+- [ ] Fully tested
+
+### Functions
+
+- [ ] CastSkill
+- [ ] CastSkill tested
+
+- [ ] IsOnCooldown
+- [ ] IsOnCooldown tested
+
+---
+
+## 9. Throne
+
+### Overall
+- [ ] Implemented
+- [ ] Fully tested
+
+### Functions
+
+- [ ] IsThrone
+- [ ] IsThrone tested
+
+- [ ] GetRank
+- [ ] GetRank tested
+
+- [ ] GetTitle
+- [ ] GetTitle tested
+
+---
+
+## 10. AI Service
+
+### Overall
+- [ ] Started
+- [ ] Fully tested
+
+---
+
+# Architecture
+
+| Module | Paradigm |
+|---------|----------|
+| StateManager | Hybrid (OOP Interface / DOD Storage) |
+| EntityManager | DOD |
+| DataManager | OOP Wrapper |
+| DamageService | Stateless |
+| CombatService | OOP |
+| MovementService | OOP |
+| SkillService | Hybrid |
+| Throne | DOD |
+| AI Service | DOD (Planned) |
+
+---
+
+# Future Ideas
 
 - [ ] Inventory
 - [ ] Equipment
-- [ ] Skills
+- [ ] NPC AI
+- [ ] Utility AI
 - [ ] Quests
-- [ ] Boss AI
+- [ ] Bosses
 - [ ] Guilds
+- [ ] Trading
+- [ ] Crafting
+
+---
+
+# Notes
+
+- StateManager owns state.
+- EntityManager owns entities.
+- DataManager owns persistence.
+- Services perform actions.
+- Managers own data.
+- Avoid circular dependencies.
+- Keep modules as independent as possible.
