@@ -61,7 +61,8 @@ function DataManager:PlayerAdded(Player)
 		CachedProfiles[Player] = Profile
 
 		local StateModule = Profile.Data.ClientData.StateModule
-		EntityManager:CreateEntity(Player.Name, StateModule, Player)
+		local Stats = { MaxPosture = Profile.Data.ClientData.MaxPosture }
+		EntityManager:CreateEntity(Player.Name, StateModule, Player, Stats)
 	else
 		Player:Kick("Data error occurred. Please rejoin.")
 	end

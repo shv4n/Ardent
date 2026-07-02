@@ -24,7 +24,7 @@ local function CreateUniqueID(Prefix)
 	return ID
 end
 
-function EntityManager:CreateEntity(EntityName, StateModule, Player)
+function EntityManager:CreateEntity(EntityName, StateModule, Player, Stats)
 	local EntityID = CreateUniqueID(EntityName)
 
 	local StateDefinitions = require(ServerStorage.Modules.StateMachines[StateModule])
@@ -33,7 +33,7 @@ function EntityManager:CreateEntity(EntityName, StateModule, Player)
 		ID = EntityID,
 		Character = nil,
 		Player = Player,
-		Data = {},
+		Data = { Posture = Stats and Stats.MaxPosture or 100 },
 		Connections = {},
 	}
 
@@ -43,6 +43,7 @@ function EntityManager:CreateEntity(EntityName, StateModule, Player)
 	if typeof(Player) == "Instance" then
 		local function BindCharacter(Character)
 			Character:SetAttribute("EntityID", EntityID)
+			Character:SetAttribute("Posture", 0) -- starts at 0, builds up as they get hit
 			Profile.Character = Character
 		end
 

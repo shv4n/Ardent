@@ -24,5 +24,15 @@ end
 	DataManager:TestExternalSteal(Player)
 end)]]
 
-Players.PlayerAdded:Connect(PlayerAdded)
+Players.PlayerAdded:Connect(function(Player)
+	PlayerAdded(Player)
+	task.wait(3)
+
+	local Profile = EntityManager:GetEntityByCharacter(Player.Character)
+	print("Profile exists:", Profile ~= nil)
+	print("Max Posture:", Profile and Profile.Data.Posture)
+	print("Current Posture:", Player.Character:GetAttribute("Posture"))
+end)
+
+--[[Players.PlayerAdded:Connect(PlayerAdded)]]
 Players.PlayerRemoving:Connect(PlayerRemoved)
