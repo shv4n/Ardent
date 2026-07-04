@@ -43,7 +43,7 @@ function EntityManager:CreateEntity(EntityName, StateModule, Player, Stats)
 	if typeof(Player) == "Instance" then
 		local function BindCharacter(Character)
 			Character:SetAttribute("EntityID", EntityID)
-			Character:SetAttribute("Posture", 0) -- starts at 0, builds up as they get hit
+			Character:SetAttribute("Posture", 0)
 			Profile.Character = Character
 		end
 
@@ -120,6 +120,18 @@ function EntityManager:DestroyEntity(Input)
 
 	EntityManager.Entities[EntityID] = nil
 	StateManager:Unregister(EntityID)
+end
+
+function EntityManager:GetState(Character)
+	local Profile = EntityManager:GetEntityByCharacter(Character)
+
+	if not Profile then
+		return nil
+	end
+
+	local EntityID = Profile.ID
+
+	return StateManager:GetState(EntityID)
 end
 
 return EntityManager
